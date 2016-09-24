@@ -13,6 +13,7 @@ import pycurl
 import urllib2
 import hashlib
 import requests
+from slugify import slugify
 from os import listdir
 from os.path import isfile, join
 from ConfigParser import ConfigParser
@@ -112,10 +113,11 @@ for x in range(START, STOP):
         curl.perform()
         curl.close()
         fp.close()
-        real_filename = re.findall('filename=(brochure[^\.]+.pdf)',str(retrieved_headers))
+        real_filename = re.findall('filename=(brochure[^\.]+)',str(retrieved_headers))
         if len(real_filename) > 0:
-            real_filename = real_filename[0]
+            real_filename = slugify(unicode(real_filename[0].decode('iso-8859-1').encode('utf-8'), 'utf-8')) + '.pdf'
             print "File '"+real_filename+"' downloaded"
             os.rename(temp_filename, real_filename)
         else:
+            print temp_filename+" deleted!"
             os.remove(temp_filename)            
