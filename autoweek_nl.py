@@ -29,7 +29,7 @@ else:
     config.set('account', 'password', '')
     config.add_section('brochuress')
     config.set('brochures', 'start', 1)
-    config.set('brochures', 'stop', 4500)
+    config.set('brochures', 'stop', 4725)
     with open('autoweek_nl.ini', 'w') as configfile:
         config.write(configfile)
 LOGIN = config.get('account', 'login')
